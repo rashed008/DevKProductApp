@@ -1,0 +1,84 @@
+﻿@model IEnumerable<ProductApp.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-bordered" id="myTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.productName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.productPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.productImage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.productQuantity)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.productName)*@
+
+                    <a href="@Url.Action("Details", "products", new { id = item.Id })" class="elements">
+                        <span>@Html.DisplayFor(modelItem => item.productName)</span>
+                    </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.productPrice)
+                </td>
+
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.productImage)
+
+                                @{
+                        var base64 = Convert.ToBase64String(item.productImage);
+                        var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+                                }
+                                <a href="@Url.Action("Details", "products", new { id = item.Id })" class="elements">
+                                    <span><img src='@imgsrc' style="max-width:50px; max-height:50px;" /></span>
+                                </a>*@
+
+
+                    @*@{
+                        var base64 = Convert.ToBase64String(item.productImage);
+                                    var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+                                }
+                                <img src='@imgsrc' style="max-width:100px; max-height:50px;" />
+                            </td>*@
+                    @{
+            var base64 = Convert.ToBase64String(item.productImage);
+            var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+                    }
+                    <a href="@Url.Action("Details", "products", new { id = item.Id })" class="elements">
+                        <span><img src='@imgsrc' style="max-width:50px; max-height:50px;" /></span>
+                    </a>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.productQuantity)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
